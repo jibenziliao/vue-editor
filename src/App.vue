@@ -44,10 +44,10 @@ export default {
         editorTheme: 'pastel-on-dark',
         // markdown: 'md',   //动态设置的markdown文本
         codeFold: true,
-        syncScrolling : false,
+        // syncScrolling : false,
         saveHTMLToTextarea: true, // 保存 HTML 到 Textarea
         searchReplace: true,
-        watch: true,                // 实时预览
+        // watch: false,                // 实时预览
         htmlDecode: 'style,script,iframe|on*', // 开启 HTML 标签解析，为了安全性，默认不开启
         //toolbar  : false,             //关闭工具栏
         //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
