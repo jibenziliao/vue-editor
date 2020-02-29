@@ -1,19 +1,24 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <pre>
+      <div class="mermaid">
+        graph TD
+        A[Client] --> B[Load Balancer]
+        B --> C[Server01]
+        B --> D[Server02]
+      </div>
+    </pre>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
 export default {
-  name: "App",
-  components: {
-    HelloWorld
+  name: 'App',
+  components: {},
+  mounted: () => {
+    mermaid.initialize({ startOnLoad: false })
   }
-};
+}
 </script>
 
 <style>
