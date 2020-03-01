@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <pre>
+    <pre v-show="parseLoading">
       <div class="mermaid">
         graph TD
         A[Client] --> B[Load Balancer]
@@ -14,9 +14,21 @@
         C -->|One| D[Result 1]
         C -->|Two| E[Result 2]
       </div>
+      <div class="mermaid">
+        sequenceDiagram
+        participant A as Alice
+        participant J as John
+        A->>J: Hello John, how are you?
+        J->>A: Great!
+      </div>
+      <div class="mermaid">
+        sequenceDiagram
+        Andrew->China: Says Hello
+        Note right of China: China thinks\nabout it
+        China-->Andrew: How are you?
+        Andrew->>China: I am good thanks!
+      </div>
     </pre>
-    <link rel="stylesheet" href="/static/editor.md/css/editormd.min.css" />
-
     <div id="editormd">
       <textarea style="display:none;">### Hello Editor.md !</textarea>
     </div>
@@ -32,6 +44,8 @@ export default {
   name: 'App',
   data: () => {
     return {
+      parseLoading: true,
+      editorText: '# Hello World!',
       //最终生成的编辑器
       editor: null,
       //默认选项
@@ -42,12 +56,13 @@ export default {
         theme: 'light',
         previewTheme: 'dark',
         editorTheme: 'pastel-on-dark',
-        // markdown: 'md',   //动态设置的markdown文本
+        // markdown: '# 文档标题', //动态设置的markdown文本
         codeFold: true,
         // syncScrolling : false,
         saveHTMLToTextarea: true, // 保存 HTML 到 Textarea
         searchReplace: true,
         // watch: false,                // 实时预览
+        placeholder: '在此输入文档内容',
         htmlDecode: 'style,script,iframe|on*', // 开启 HTML 标签解析，为了安全性，默认不开启
         //toolbar  : false,             //关闭工具栏
         //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
@@ -99,11 +114,11 @@ export default {
       let vm = this
       // 加载editormd
       this.requireEditor(function() {
-        vm.editor = editormd(vm.id, vm.getOptions())
+        vm.editor = editormd(vm.id, vm.defaultOptions)
       })
     },
     initMermaid() {
-      mermaid.initialize({ startOnLoad: false })
+      mermaid.initialize({ startOnLoad: true, theme: 'dark' })
     },
     requireEditor(callback) {
       let vm = this
@@ -115,11 +130,8 @@ export default {
       })
       //加载css
       $('head').append(
-        $('<link rel="stylesheet" type="text/css" />').attr('href', '/lib/editor.md/css/editormd.min.css')
+        $('<link rel="stylesheet" type="text/css" />').attr('href', '/static/editor.md/css/editormd.min.css')
       )
-    },
-    getOptions() {
-      return Object.assign(this.defaultOptions, this.options)
     },
     printData() {
       console.log(this.editor)
@@ -127,7 +139,6 @@ export default {
     }
   },
   mounted() {
-    // mermaid.initialize({ startOnLoad: false })
     this.initMermaid()
     this.initEditor()
   }
