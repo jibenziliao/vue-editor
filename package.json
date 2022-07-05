@@ -11,7 +11,7 @@
     "core-js": "^3.6.4",
     "editor.md": "^1.5.0",
     "jquery": "^3.4.1",
-    "mermaid": "^8.4.8",
+    "mermaid": "^9.1.2",
     "uuid": "^7.0.1",
     "vue": "^2.6.11",
     "vue-editor-md3": "^1.1.1"
